@@ -1,0 +1,226 @@
+
+DOCKER for Micro processing of application components
+
+Can i use windows applications throught docker hub--no(eg:- calculator)
+
+#DOCKER COMMUNITY
+#DOCKER ENTERPRISE
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql
+
+docker run --name some-wordpress -p 8081:80 --link some-mysql:mysql -d wordpress
+
+stateless--
+statefull--application will data on disk which need to be backed up(using volumes concept)
+
+docker kernal Namespaces:-
+
+Namespaces
+pid--create isolated processes within container
+net-- networking capabilites,ports,sockets
+mnt-- mount namespace,as if container is a diffrent root tree to an application
+user--manages users
+
+SQL__big
+microsoft sql
+oracle 
+etl
+
+sql--lean
+mysql
+mongodb
+
+Cgroups--increase container memory(control running PROCESS'S)
+
+CAPABILITIES--only particular access to users(diffrent components)
+root user
+normaluser
+sudo user
+
+CAP_AUDIT_CONTROL
+CAP_CHOWN
+CA_NET_BING_SERVICE
+-----------------------------------------------------------------
+
+CREATE A DOCKERFILE
+Directives
+
+FROM--which base image you are starting from
+FROM ubuntu:trusty
+MAINTAINER--who has written this
+MAINTAINER asquare@qt
+RUN--During build process(linux commands written upon base image)
+RUN apt-get update && apt-get install -y apache2
+ADD--web copy(source dest)
+COPY--local copy 
+ENV
+EXPOSE--app ports
+ENTRYPOINT--ping
+CMD--command after container is built(/bin/bash replaces cmd if written after name in commandline)
+WORKDIR--wer to pwd wen ulogin to container
+USER
+VOLUME
+
+
+docker run -p 8081:80 nginx
+              host:container
+---------------------------------------------------
+ps aux---applications running in cointainer
+
+#what commands have been used in container..?
+docker logs <container id>
+
+Storage Drivers
+
+one image layer == one run Directive
+
+IMAGES
+aufs==ubuntu
+device mappers==redhat
+overlay fs=====centos/redhat
+ctrl p q--quit without killing container
+----------------------------------------------------
+NETWORK
+BRIDGE 
+HOST
+NONE
+
+DOCKER0 INTERFACE TO INTERACT WITH CONTAINER
+lxc--linux container
+lib container--
+lib network--
+
+
+
+9e4c65a4cdf741fc94093b57370e04ad
+ctrl c
+ctrl pq--will not kill cointainer
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql
+
+83c306277b645b04da4466cb9d471a640a67318d7039024b6f2cc505828af234
+
+DOCKER DIRECTIVES
+------------------
+
+
+FROM ubuntu:trusty
+MAINTAINER surya
+RUN apt-get update && apt-get -y install apache2
+EXPOSE 80
+CMD ["service", "apache2", "start"]
+
+
+FROM ubuntu:trusty
+MAINTAINER surya
+RUN apt-get update
+COPY Hi.txt /Hi.txt
+CMD["/bin/bash"]
+
+/usr/local/tomcat/webapps
+
+2ff3b426bbaa
+RUN will create a new image layer
+
+lib cointainer
+LXE==lib cointainer
+networking==lib network
+
+CNM=design of network  (CNM vs CNI)  CNI==kubernetes/google,CoreOs
+
+Sandbox==NAMESPACE(Linux kernal namespace)
+ENDPOINT=network NAMESPACE(local network icon windows)etho0
+         bridge endpoint==new etho0
+         multi host endpoint==vxlan
+NETWORK
+
+3 TYPE NETWORK 
+bridge 
+host
+none
+
+SCOPE
+SWARM--multi host
+local--singe host
+-----------------
+pinging is auto enable b/w two container in custom network but not in host network
+DNS service is enable by default,can ping externally if not present in single-host.
+-------------------
+DNS
+
+A NAME(ip/machine name)
+C NAME(/etc/hosts)
+--------------------------
+service discovery
+
+request goes by srvice(nginx,apache) to dat particular cointainer name in swarm multi-host, not by port no. 10.0.0.113
+-------------------------------------
+
+ingres
+docker data centre--independent by docker
+------------
+dont want container delete it,its ram vl be counted if stopped also
+------------------
+FILTERING & SCHEDULING
+---------
+BINPACK
+SPREAD
+RANDOM
+
+Filter--how many machines do i need to run
+No custom lable, use affinity or resouce
+-------------------
+Affinity
+Constraint--labels
+Resource --on a particular (100 gig space free)
+--------------
+scheduling strategies
+BINPACK===most smallest node as possible,always thinks of further coming
+SPREAD==takes container & distributes equally among all cycle.(by default ) 
+
+
+apt-get -y install docker-engine=docker-engine | 1.13.1-0~ubuntu-trusty | https://apt.dockerproject.org/repo/ ubuntu-trusty/main amd64 Packages
+
+
+docker swarm join \
+    --token SWMTKN-1-6ar0vr2wm2b2ijyife9jacbmv4dh4wrkzoq5tzay1praw56jjt-duq2orqpqqsv2aj4btinwb7q4 \
+    172.31.2.198:2377
+-------------------------------------------------------------------------
+
+compose
+ - Docker-compose yaml
+ - - A
+ - - - 
+build-when owen docker
+mage--others file
+network---docker0
+ports- -p 8080:8080
+volumes-- data from . to cointainer
+
+dock-compose build---images out from file
+	up-build & start
+	down--stop & remove
+	logs-- all logs
+	ps--
+	stop--
+	start--
+	rm
+
+dock-comp build mongo
+doc-com up --no-deps node
+doc-com down --rmi all --volumes
+
+docker login
+docker push -t myimage:1.0
+docker logout
+
+swarm
+----------
+task---------- is running container
+service------- combination of tasks
+
+compose
+-------------
+service---is running container
+
+
